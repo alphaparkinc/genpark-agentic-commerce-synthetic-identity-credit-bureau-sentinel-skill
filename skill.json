@@ -1,0 +1,82 @@
+{
+  "name": "genpark-agentic-commerce-synthetic-identity-credit-bureau-sentinel-skill",
+  "version": "1.0.0",
+  "title": "Commerce Synthetic Identity Fraud & Tradeline Sentinel Skill",
+  "description": "Synthetic identity theft (Frankenstein ID) detection, SSN issuance year vs. DOB mismatch scoring, piggybacking tradeline anomaly auditing, and BNPL credit application gatekeeper. Built for GenPark (https://www.genpark.ai).",
+  "homepage": "https://www.genpark.ai",
+  "linkedin": "https://www.linkedin.com/company/92955550",
+  "category": "agentic-commerce",
+  "topics": [
+    "synthetic-identity",
+    "fraud-detection",
+    "credit-bureau",
+    "bnpl-risk",
+    "identity-verification",
+    "agentic-commerce",
+    "model-context-protocol",
+    "genpark"
+  ],
+  "tools": [
+    {
+      "name": "screen_synthetic_identity_risk",
+      "description": "Analyze credit bureau applicant telemetry (SSN randomization timeline, authorized user tradeline count, velocity) to flag synthetic Frankenstein identities.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "applicant_id": {
+            "type": "string"
+          },
+          "applicant_dob_year": {
+            "type": "integer"
+          },
+          "ssn_estimated_issuance_year": {
+            "type": "integer"
+          },
+          "authorized_user_tradelines_count": {
+            "type": "integer",
+            "description": "Piggybacking tradelines count"
+          },
+          "primary_tradelines_count": {
+            "type": "integer"
+          },
+          "credit_file_depth_months": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "applicant_id",
+          "applicant_dob_year",
+          "ssn_estimated_issuance_year",
+          "authorized_user_tradelines_count",
+          "primary_tradelines_count"
+        ]
+      }
+    },
+    {
+      "name": "enforce_synthetic_id_countermeasure",
+      "description": "Enforce e-KYC step-up authentication (SSA-89 Social Security direct consent match, physical utility bill verification).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "applicant_id": {
+            "type": "string"
+          },
+          "synthetic_risk_score": {
+            "type": "number"
+          },
+          "flagged_anomalies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "applicant_id",
+          "synthetic_risk_score",
+          "flagged_anomalies"
+        ]
+      }
+    }
+  ]
+}
